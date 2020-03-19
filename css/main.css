@@ -7,3 +7,48 @@ body {
     background-color: white;
 }
 
+
+#gameOverWrapper {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(79, 79, 79, 0.8);
+    z-index: 1000000000000;
+}
+
+#gameOverBox {
+    text-align: center;
+    z-index: 10000000;
+    margin: auto;
+    width: 100%;
+    position: absolute;
+
+}
+
+#gameOver {
+    box-shadow: 5px 5px 10px #5a5a5a;
+    border-radius: 8px;
+    padding-top: 25px;
+    z-index: 10000000000;
+    text-align: center;
+    width: 420px;
+    height: 50px;
+    background-color: rgba(50, 50, 49, 0.8);
+    margin-top: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    color: lightgrey;
+    padding-bottom: 10px;
+    font-family: 'Press Start 2P', cursive;
+    line-height: 20px;
+}
+
+#gameOverButton {
+    font-family: 'Press Start 2P', cursive;
+    border: solid 1px grey;
+    cursor: pointer;
+    background-color: #676767;
+    color: #e6e6e6;
+    margin-bottom: 5px;
+}

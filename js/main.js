@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');
 
 let player = {x: 300, y: 500, w: 100, h: 20};
 let ball = {x: 200, y: 500, radius: 10};
+let brick = {w: 46, h: 46};
+
 
 let dx = 2;
 let dy = -2;
@@ -17,9 +19,17 @@ function ranArrayItem(arrayName) {
     return arrayName[x]
 }
 
+let lives = 3;
+let score = 0;
 
-let brickPosX = 32;
+let brickX = brickPos();
 
+function checkBrickCollision() {
+
+    if (ball.x === (brickX - brick.w / 2) || ball.x === (brickX + brick.w / 2)) {
+        alert();
+    }
+}
 
 document.addEventListener('mousemove', logKey);
 
@@ -34,9 +44,24 @@ function gameOver() {
     }
 }
 
+function brickPos() {
+    let x;
+    for (let i = 2; i < 10; i++) {
+        x = i * 64;
+    }
+    return x
+}
+
+console.log(brickPos());
+
 function drawBrick() {
-    ctx.fillStyle = "rgb(50, 50, 100)";
-    ctx.fillRect(brickPosX, 32, 26, 26);
+    for (let i = 2; i < 10; i++) {
+        let x = i * 64;
+        ctx.fillStyle = "rgb(50, 50, 100)";
+        ctx.fillRect(x, 32, brick.w, brick.h);
+
+    }
+
 }
 
 function paddleBallCollision() {
@@ -85,12 +110,7 @@ function update(progress) {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let brick in bricks) {
-        drawBrick();
-        if (brickPosX < 128) {
-            brickPosX += 32
-        }
-    }
+    drawBrick();
     ctx.fillStyle = "rgb(100, 50, 100)";
     ctx.fillRect(player.x, player.y, player.w, player.h);
     drawBall();
