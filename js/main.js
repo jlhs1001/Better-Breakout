@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 
 let player = {x: 300, y: 500, w: 100, h: 20};
 let ball = {x: 200, y: 500, radius: 10};
-let brick = {w: 46, h: 46};
+let brick = {w: 46, h: 46, y: 32};
 
 
 let dx = 2;
@@ -13,6 +13,23 @@ let bricks = ["brick", "brick", "brick", "brick"];
 
 brickSpacing = 32;
 brickTypes = [1, 2, 3, 4];
+
+document.addEventListener("keydown", function (e) {
+    switch (e.code) {
+        case "KeyI":
+            dx += 1;
+            break;
+        case "KeyO":
+            dx += -1;
+            break;
+        case "KeyK":
+            dy += 1;
+            break;
+        case "KeyL":
+            dy += -1;
+            break;
+    }
+});
 
 function ranArrayItem(arrayName) {
     let x = (Math.random() * arrayName.length);
@@ -25,9 +42,9 @@ let score = 0;
 let brickX = brickPos();
 
 function checkBrickCollision() {
-
-    if (ball.x === (brickX - brick.w / 2) || ball.x === (brickX + brick.w / 2)) {
-        alert();
+    if (ball.x > brickX && ball.x < (brickX + brick.w) || ball.y > brick.y && ball.y < (brick.y + brick.h)) {
+        console.log(`collision detected  @  Ball.x: ${ball.x}, Ball.y: ${ball.y}`);
+        // dx = -dx;
     }
 }
 
@@ -52,14 +69,12 @@ function brickPos() {
     return x
 }
 
-console.log(brickPos());
 
 function drawBrick() {
     for (let i = 2; i < 10; i++) {
         let x = i * 64;
         ctx.fillStyle = "rgb(50, 50, 100)";
-        ctx.fillRect(x, 32, brick.w, brick.h);
-
+        ctx.fillRect(x, brick.y, brick.w, brick.h);
     }
 
 }
@@ -100,6 +115,7 @@ function ballWallCollision() {
 
 
 function update(progress) {
+    checkBrickCollision();
     paddleBallCollision();
     ballWallCollision();
     maxMinPaddlePos();
@@ -129,4 +145,3 @@ function loop(timestamp) {
 
 let lastRender = 0;
 window.requestAnimationFrame(loop);
-
