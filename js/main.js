@@ -5,7 +5,7 @@ let player = {x: 300, y: 500, w: 100, h: 20};
 let ball = {x: 200, y: 500, radius: 10};
 let brick = {w: 46, h: 46, y: 32};
 
-
+let devMode = false;
 let dx = 2;
 let dy = -2;
 
@@ -16,18 +16,20 @@ brickTypes = [1, 2, 3, 4];
 
 document.addEventListener("keydown", function (e) {
     switch (e.code) {
-        case "KeyI":
+        case "ArrowRight":
             dx += 1;
             break;
-        case "KeyO":
+        case "ArrowLeft":
             dx += -1;
             break;
-        case "KeyK":
+        case "ArrowUp":
             dy += 1;
             break;
-        case "KeyL":
+        case "ArrowDown":
             dy += -1;
             break;
+        case "KeyJ":
+            devMode = true;
     }
 });
 
@@ -42,7 +44,7 @@ let score = 0;
 let brickX = brickPos();
 
 function checkBrickCollision() {
-    if (ball.x > brickX && ball.x < (brickX + brick.w) || ball.y > brick.y && ball.y < (brick.y + brick.h)) {
+    if (ball.x > brickX && ball.x < (brickX + brick.w) && ball.y > brick.y && ball.y < (brick.y + brick.h)) {
         console.log(`collision detected  @  Ball.x: ${ball.x}, Ball.y: ${ball.y}`);
         // dx = -dx;
     }
@@ -56,8 +58,10 @@ function logKey(e) {
 
 
 function gameOver() {
-    if (ball.y + dy > canvas.height - ball.radius) {
-        alert("GAME OVER")
+    if (devMode === false) {
+        if (ball.y + dy > canvas.height - ball.radius) {
+            alert("GAME OVER")
+        }
     }
 }
 
@@ -110,6 +114,11 @@ function ballWallCollision() {
     }
     if (ball.y + dy < ball.radius) {
         dy = -dy;
+    }
+    if (devMode === true) {
+        if (ball.y + dy > canvas.height - ball.radius) {
+            dy = -dy
+        }
     }
 }
 

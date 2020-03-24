@@ -4,12 +4,13 @@ body {
 
 #canvasBox {
     position: relative;
-    text-align: center;
     z-index: 1000000;
 
 }
 
 #canvas {
+    margin-left: auto;
+    margin-right: auto;
     background-color: white;
     border-radius: 0 0 3px 3px;
     box-shadow: 3px 5px 5px 3px rgb(85, 80, 80);
