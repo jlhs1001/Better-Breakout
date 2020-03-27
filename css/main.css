@@ -2,10 +2,21 @@ body {
     background-color: grey;
 }
 
+#display {
+    padding-top: 14px;
+    border-radius: 3px 3px 0 0;
+    color: black;
+    background-color: white;
+    width: 800px;
+    height: 32px;
+    font-family: 'Press Start 2P', cursive;
+    box-shadow: 3px 5px 5px 3px rgb(85, 80, 80);
+}
+
 #canvasBox {
     position: relative;
     z-index: 1000000;
-
+    /*text-align: center;*/
 }
 
 #canvas {

@@ -3,16 +3,51 @@ const ctx = canvas.getContext('2d');
 
 let player = {x: 300, y: 500, w: 100, h: 20};
 let ball = {x: 200, y: 500, radius: 10};
-let brick = {w: 46, h: 46, y: 32};
 
 let devMode = false;
 let dx = 2;
 let dy = -2;
 
-let bricks = ["brick", "brick", "brick", "brick"];
+let brickIndex = 0;
 
-brickSpacing = 32;
-brickTypes = [1, 2, 3, 4];
+let bricks = genBricks();
+
+// let display = document.getElementById("display");
+
+function genBrick(x, y, color="red"){
+    brickIndex++;
+    return {
+        id: brickIndex,
+        color: color,
+        w: 60,
+        h: 40,
+        x: x,
+        y: y
+    }
+}
+
+function killBrick(brickId){
+    let brick = bricks[brickId];
+    brick.h = 0;
+    brick.w = 0;
+    brick.x = 0;
+    brick.y = 0;
+}
+
+function genBricks(rows= 6, columns= 3){
+    let bricks = [];
+    for (let row = 1; row < rows + 1; row++) {
+        for (let col = 1; col < columns + 1; col++) {
+            let r = 50 + (20 * col);
+            let g = 50 + (20 * col);
+            let b = 100 - (10 * col);
+            let color = `rgb(${r}, ${g}, ${b})`;
+            console.log(row, col);
+            bricks.push(genBrick(row * 64, col * 64, color))
+        }
+    }
+    return bricks;
+}
 
 document.addEventListener("keydown", function (e) {
     switch (e.code) {
@@ -22,10 +57,10 @@ document.addEventListener("keydown", function (e) {
         case "ArrowLeft":
             dx += -1;
             break;
-        case "ArrowUp":
+        case "ArrowDown":
             dy += 1;
             break;
-        case "ArrowDown":
+        case "ArrowUp":
             dy += -1;
             break;
         case "KeyJ":
@@ -33,21 +68,34 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
-function ranArrayItem(arrayName) {
-    let x = (Math.random() * arrayName.length);
-    return arrayName[x]
-}
-
 let lives = 3;
 let score = 0;
 
-let brickX = brickPos();
+function brickCollision() {
+    for (let i = 0; i < bricks.length; i++) {
+        let brick = bricks[i];
+        let xRadius = ball.x + (ball.radius);
+        let yRadius = ball.y + (ball.radius);
+        if  (xRadius > brick.x && xRadius < (brick.x + brick.w) &&
+            yRadius > brick.y && yRadius < (brick.y + brick.h)) {
+            killBrick(brick.id);
+            console.log(`collision detected  @  Ball.x: ${ball.x}, Ball.y: ${ball.y}`);
+            return true;
+        }
+    }
+}
 
 function checkBrickCollision() {
-    if (ball.x > brickX && ball.x < (brickX + brick.w) && ball.y > brick.y && ball.y < (brick.y + brick.h)) {
-        console.log(`collision detected  @  Ball.x: ${ball.x}, Ball.y: ${ball.y}`);
-        // dx = -dx;
+    console.log(dx + " " + dy);
+    if (brickCollision() === true) {
+        console.log(bricks);
+        if (dy > dx) {
+            dx = -dx;
+        } else if (dx > dy) {
+            dy = -dy;
+        }
     }
+
 }
 
 document.addEventListener('mousemove', logKey);
@@ -56,29 +104,20 @@ function logKey(e) {
     player.x = e.clientX - (player.w / 2);
 }
 
-
 function gameOver() {
     if (devMode === false) {
         if (ball.y + dy > canvas.height - ball.radius) {
-            alert("GAME OVER")
+            console.log("GAME OVER")
         }
     }
 }
 
-function brickPos() {
-    let x;
-    for (let i = 2; i < 10; i++) {
-        x = i * 64;
-    }
-    return x
-}
-
-
 function drawBrick() {
-    for (let i = 2; i < 10; i++) {
-        let x = i * 64;
-        ctx.fillStyle = "rgb(50, 50, 100)";
-        ctx.fillRect(x, brick.y, brick.w, brick.h);
+    for (let i = 0; i < bricks.length; i++) {
+        const brick = bricks[i];
+
+        ctx.fillStyle = brick.color;
+        ctx.fillRect(brick.x, brick.y, brick.w, brick.h);
     }
 
 }
@@ -90,7 +129,6 @@ function paddleBallCollision() {
         }
     }
 }
-
 
 function maxMinPaddlePos() {
     if (player.x > (canvas.width - player.w)) {
@@ -122,7 +160,6 @@ function ballWallCollision() {
     }
 }
 
-
 function update(progress) {
     checkBrickCollision();
     paddleBallCollision();
@@ -133,11 +170,15 @@ function update(progress) {
     ball.y += dy;
 }
 
+function drawPaddle() {
+    ctx.fillStyle = "rgb(100, 50, 100)";
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBrick();
-    ctx.fillStyle = "rgb(100, 50, 100)";
-    ctx.fillRect(player.x, player.y, player.w, player.h);
+    drawPaddle();
     drawBall();
 
 }
