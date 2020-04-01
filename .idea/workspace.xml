@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b8b0963f-cfee-406d-be2b-8243d81f4566" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +15,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -49,7 +51,12 @@
       <workItem from="1584538121897" duration="16775000" />
       <workItem from="1584568498777" duration="603000" />
       <workItem from="1584627279130" duration="23420000" />
-      <workItem from="1584906898098" duration="35650000" />
+      <workItem from="1584906898098" duration="48440000" />
+      <workItem from="1585582455576" duration="11311000" />
+      <workItem from="1585628041521" duration="33000" />
+      <workItem from="1585669614999" duration="6063000" />
+      <workItem from="1585684410680" duration="10916000" />
+      <workItem from="1585712565404" duration="546000" />
     </task>
     <task id="LOCAL-00001" summary="add basic brick generator V.1.0">
       <created>1584651143897</created>
@@ -79,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585314864406</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add better brick collision and genBrick/killBrick.">
+      <created>1585314900535</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585314900535</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,10 +107,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="add better brick collision and genBrick/killBrick." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="393" y="6" key="CommitChangelistDialog2" timestamp="1585314863690">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="655" y="10" key="CommitChangelistDialog2" timestamp="1585693969328">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585314863690" />
+    <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585314899532" />
+    <state x="655" y="10" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1585693969328" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585063965667">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -113,10 +128,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585282381986" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585314871100">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585314903997">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585314871100" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585314903997" />
     <state x="-6" y="0" width="1538" height="824" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1585282379080">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

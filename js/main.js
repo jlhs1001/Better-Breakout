@@ -12,9 +12,25 @@ let brickIndex = 0;
 
 let bricks = genBricks();
 
-// let display = document.getElementById("display");
+let pause = false;
 
-function genBrick(x, y, color="red"){
+let ranBallX;
+
+
+let display = document.getElementById("display");
+
+function newGame() {
+    ranBallX = Math.floor(Math.random() * canvas.width);
+    dx = 2;
+    dy = -2;
+    player.x = 300;
+    player.y = 500;
+    ball.x = ranBallX;
+    ball.y = 500;
+
+}
+
+function genBrick(x, y, color = "red") {
     brickIndex++;
     return {
         id: brickIndex,
@@ -26,15 +42,16 @@ function genBrick(x, y, color="red"){
     }
 }
 
-function killBrick(brickId){
-    let brick = bricks[brickId];
+function killBrick(brickId) {
+    let brick = bricks[brickId - 1];
+    console.log(brick);
     brick.h = 0;
     brick.w = 0;
     brick.x = 0;
     brick.y = 0;
 }
 
-function genBricks(rows= 6, columns= 3){
+function genBricks(rows = 6, columns = 2) {
     let bricks = [];
     for (let row = 1; row < rows + 1; row++) {
         for (let col = 1; col < columns + 1; col++) {
@@ -65,37 +82,41 @@ document.addEventListener("keydown", function (e) {
             break;
         case "KeyJ":
             devMode = true;
+            break;
+    }
+    if (pause === false) {
+        if (e.code === "KeyP") {
+            pause = true;
+        }
+    } else {
+        if (e.code === "KeyP") {
+            pause = false;
+        }
     }
 });
 
 let lives = 3;
 let score = 0;
 
+let brick;
+
 function brickCollision() {
     for (let i = 0; i < bricks.length; i++) {
-        let brick = bricks[i];
+        brick = bricks[i];
         let xRadius = ball.x + (ball.radius);
         let yRadius = ball.y + (ball.radius);
-        if  (xRadius > brick.x && xRadius < (brick.x + brick.w) &&
-            yRadius > brick.y && yRadius < (brick.y + brick.h)) {
+        if (xRadius > brick.x && (ball.x - ball.radius) < (brick.x + brick.w) &&
+            yRadius > brick.y && (ball.y - ball.radius) < (brick.y + brick.h)) {
             killBrick(brick.id);
-            console.log(`collision detected  @  Ball.x: ${ball.x}, Ball.y: ${ball.y}`);
             return true;
         }
     }
 }
 
 function checkBrickCollision() {
-    console.log(dx + " " + dy);
     if (brickCollision() === true) {
-        console.log(bricks);
-        if (dy > dx) {
-            dx = -dx;
-        } else if (dx > dy) {
-            dy = -dy;
-        }
+        dy = -dy;
     }
-
 }
 
 document.addEventListener('mousemove', logKey);
@@ -138,6 +159,10 @@ function maxMinPaddlePos() {
     }
 }
 
+function scoreBoard() {
+    display.innerHTML = `Score ${score} lives: ${lives}`
+}
+
 function drawBall() {
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -160,7 +185,23 @@ function ballWallCollision() {
     }
 }
 
+function positiveNegative(x, y) {
+    let a = Math.sign(x);
+    let b = Math.sign(y);
+    if (a === 1 && b === -1) {
+        return "posNeg"
+    } else if (a === -1 && b === 1) {
+        return "negPos"
+    } else if (a === 1 && b === 1) {
+        return "posPos"
+    } else if (a === -1 && b === -1) {
+        return "negNeg"
+    }
+}
+
 function update(progress) {
+    console.log(`dx: ${dx} dy: ${dy} || ${positiveNegative(dx, dy)}`);
+    scoreBoard();
     checkBrickCollision();
     paddleBallCollision();
     ballWallCollision();
@@ -186,7 +227,9 @@ function draw() {
 function loop(timestamp) {
     let progress = timestamp - lastRender;
 
-    update(progress);
+    if (pause === false) {
+        update(progress);
+    }
     draw();
 
     lastRender = timestamp;
