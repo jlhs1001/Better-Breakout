@@ -11,6 +11,7 @@ body {
     height: 32px;
     font-family: 'Press Start 2P', cursive;
     box-shadow: 3px 5px 5px 3px rgb(85, 80, 80);
+    text-align: center;
 }
 
 #canvasBox {

@@ -1,8 +1,9 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+let ranBallX = Math.floor(Math.random() * canvas.width);
 let player = {x: 300, y: 500, w: 100, h: 20};
-let ball = {x: 200, y: 500, radius: 10};
+let ball = {x: ranBallX, y: 450, radius: 10};
 
 let devMode = false;
 let dx = 2;
@@ -14,9 +15,6 @@ let bricks = genBricks();
 
 let pause = false;
 
-let ranBallX;
-
-
 let display = document.getElementById("display");
 
 function newGame() {
@@ -26,11 +24,11 @@ function newGame() {
     player.x = 300;
     player.y = 500;
     ball.x = ranBallX;
-    ball.y = 500;
+    ball.y = 450;
 
 }
-
 function genBrick(x, y, color = "red") {
+
     brickIndex++;
     return {
         id: brickIndex,
@@ -51,7 +49,7 @@ function killBrick(brickId) {
     brick.y = 0;
 }
 
-function genBricks(rows = 6, columns = 2) {
+function genBricks(rows = 10, columns = 3) {
     let bricks = [];
     for (let row = 1; row < rows + 1; row++) {
         for (let col = 1; col < columns + 1; col++) {
@@ -108,14 +106,10 @@ function brickCollision() {
         if (xRadius > brick.x && (ball.x - ball.radius) < (brick.x + brick.w) &&
             yRadius > brick.y && (ball.y - ball.radius) < (brick.y + brick.h)) {
             killBrick(brick.id);
+                dy = -dy;
+            score++;
             return true;
         }
-    }
-}
-
-function checkBrickCollision() {
-    if (brickCollision() === true) {
-        dy = -dy;
     }
 }
 
@@ -126,11 +120,19 @@ function logKey(e) {
 }
 
 function gameOver() {
-    if (devMode === false) {
-        if (ball.y + dy > canvas.height - ball.radius) {
-            console.log("GAME OVER")
-        }
-    }
+    console.log("game over");
+}
+
+function die() {
+    ranBallX = Math.floor(Math.random() * canvas.width);
+    dx = 2;
+    dy = -2;
+    score = 0;
+    lives = 3;
+    player.x = 300;
+    player.y = 500;
+    ball.x = ranBallX;
+    ball.y = 500;
 }
 
 function drawBrick() {
@@ -142,6 +144,7 @@ function drawBrick() {
     }
 
 }
+
 
 function paddleBallCollision() {
     if (ball.y === (player.y - player.h / 2)) {
@@ -160,7 +163,7 @@ function maxMinPaddlePos() {
 }
 
 function scoreBoard() {
-    display.innerHTML = `Score ${score} lives: ${lives}`
+    display.innerHTML = `Score: ${score} \xa0\xa0\xa0\ lives: ${lives}`
 }
 
 function drawBall() {
@@ -202,11 +205,21 @@ function positiveNegative(x, y) {
 function update(progress) {
     console.log(`dx: ${dx} dy: ${dy} || ${positiveNegative(dx, dy)}`);
     scoreBoard();
-    checkBrickCollision();
+    brickCollision();
     paddleBallCollision();
     ballWallCollision();
     maxMinPaddlePos();
-    gameOver();
+    if (devMode === false) {
+        if (ball.y + dy > canvas.height - ball.radius) {
+            die();
+        }
+    }
+
+    if (lives <= 0) {
+        gameOver();
+
+    }
+
     ball.x += dx;
     ball.y += dy;
 }
