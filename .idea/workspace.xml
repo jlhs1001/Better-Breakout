@@ -59,7 +59,7 @@
       <workItem from="1585684410680" duration="10916000" />
       <workItem from="1585712565404" duration="940000" />
       <workItem from="1585713524355" duration="13213000" />
-      <workItem from="1585799131194" duration="333000" />
+      <workItem from="1585799131194" duration="16029000" />
     </task>
     <task id="LOCAL-00001" summary="add basic brick generator V.1.0">
       <created>1584651143897</created>
@@ -103,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585713362974</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="clean up code">
+      <created>1585799663754</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585799663754</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,13 +122,14 @@
     <MESSAGE value="add improved DEV mode" />
     <MESSAGE value="add better brick collision and genBrick/killBrick." />
     <MESSAGE value="add scoreboard function and ball direction tracker" />
-    <option name="LAST_COMMIT_MESSAGE" value="add scoreboard function and ball direction tracker" />
+    <MESSAGE value="clean up code" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up code" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2575" y="-753" key="CommitChangelistDialog2" timestamp="1585713361964">
+    <state x="2575" y="-753" key="CommitChangelistDialog2" timestamp="1585799662610">
       <screen x="1920" y="-763" width="2560" height="1400" />
     </state>
-    <state x="2575" y="-753" key="CommitChangelistDialog2/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1585713361964" />
+    <state x="2575" y="-753" key="CommitChangelistDialog2/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1585799662610" />
     <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1585314899532" />
     <state x="655" y="10" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1585693969328" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1585063965667">
@@ -140,21 +148,24 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585282381986" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1585314903997">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2522" y="-517" key="Vcs.Push.Dialog.v2" timestamp="1585799669895">
+      <screen x="1920" y="-763" width="2560" height="1400" />
     </state>
+    <state x="2522" y="-517" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1585799669895" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1585314903997" />
     <state x="-6" y="0" width="1538" height="824" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1585282379080">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="-6" y="0" width="1538" height="824" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1536.824@0.0.1536.824" timestamp="1585282379080" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1585276662813">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2628" y="-445" key="run.anything.popup" timestamp="1585845429515">
+      <screen x="1920" y="-763" width="2560" height="1400" />
     </state>
+    <state x="2628" y="-445" key="run.anything.popup/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1585845429515" />
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1585276662813" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1585314684266">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="2638" y="-517" width="1120" height="1152" key="search.everywhere.popup" timestamp="1585800685630">
+      <screen x="1920" y="-763" width="2560" height="1400" />
     </state>
+    <state x="2638" y="-517" width="1120" height="1152" key="search.everywhere.popup/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1585800685630" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585314684266" />
     <state x="491" y="324" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1584550191974">
       <screen x="0" y="0" width="1536" height="824" />

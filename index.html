@@ -8,7 +8,25 @@
 </head>
 <body>
 
+<div id="gameOverWrapper">
+    <div id="gameOverBox">
+        <div id="gameOver">Game Over<br>
+            <button id="gameOverButton" onclick="newGame()">Restart</button></div>
+    </div>
+</div>
+
+<div id="winWrapper">
+    <div id="winBox">
+        <div id="win">Game Over<br>
+            <button id="winButton" onclick="newGame()">Restart</button></div>
+    </div>
+</div>
+
+
+
+<div id="displayWrapper">
 <div id="display"></div>
+</div>
 
 <div id="canvasBox">
     <canvas id="canvas" width="800" height="600">Canvas Not Loaded. Please change your browser or reload the page.
@@ -16,13 +34,7 @@
 
 </div>
 
-<div id="gameOverWrapper">
-    <div id="gameOverBox">
-        <div id="gameOver">Game Over<br>
-            <button id="gameOverButton" onclick="gameOver()">Restart</button>
-        </div>
-    </div>
-</div>
+
 
 <script src="js/main.js"></script>
 </body>
