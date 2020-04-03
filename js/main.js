@@ -1,6 +1,10 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const gameOverWrapper = document.getElementById("gameOverWrapper");
+const winWrapper = document.getElementById("winWrapper");
+
+let r;
+let c;
 
 let ranBallX = Math.floor(Math.random() * canvas.width);
 let player = {x: 300, y: 500, w: 100, h: 20};
@@ -19,6 +23,28 @@ let bricks = genBricks();
 let pause = false;
 
 let display = document.getElementById("display");
+
+let highScore;
+
+function getUrlVars() {
+    let vars = {};
+    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function getUrlParam(parameter, defaultValue) {
+    let urlparameter = defaultValue;
+    if (window.location.href.indexOf(parameter) > -1) {
+        urlparameter = getUrlVars()[parameter];
+    }
+    return urlparameter;
+}
+
+function setHighScore() {
+    window.location.href = `http://localhost:63342/breakOut/index.html?highscore=${highScore}`
+}
 
 function genBrick(x, y, color = "red") {
 
@@ -42,8 +68,12 @@ function killBrick(brickId) {
     brick.y = 0;
 }
 
-function genBricks(rows = 10, columns = 3) {
+
+
+function genBricks(rows = 1, columns = 1) {
     let bricks = [];
+    r = rows;
+    c = columns;
     for (let row = 1; row < rows + 1; row++) {
         for (let col = 1; col < columns + 1; col++) {
             let r = 50 + (20 * col);
@@ -141,7 +171,6 @@ function drawBrick() {
 
 }
 
-
 function paddleBallCollision() {
     if (ball.y === (player.y - player.h / 2)) {
         if (ball.x > player.x && ball.x < (player.x + player.w)) {
@@ -163,6 +192,11 @@ function scoreBoard() {
 }
 
 function drawBall() {
+    if (ranBallX <= 40) {
+        ranBallX = 40
+    } else if (ranBallX >= (canvas.width - 40)) {
+        ranBallX = (canvas.width - 40)
+    }
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     ctx.fillStyle = 'rgb(200, 100, 200)';
@@ -185,20 +219,22 @@ function ballWallCollision() {
 }
 
 function newGame() {
+    location.reload();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     genBricks();
-    window.reload();
     dx = 2;
     dy = -2;
     lives = 3;
     score = 0;
     pause = false;
     gameOverWrapper.style.display = "none";
+    winWrapper.style.display = "none";
 }
 
 function win() {
-    if (bricks.length <= 0) {
-        window.reload()
+    if (score >=  r * c) {
+        pause = true;
+        winWrapper.style.display = "block";
     }
 }
 
@@ -223,6 +259,7 @@ function update(progress) {
     paddleBallCollision();
     ballWallCollision();
     maxMinPaddlePos();
+    win();
     xOffset = ((window.innerWidth / 2) - (canvas.width / 2));
     if (devMode === false) {
         if (ball.y + dy >= canvas.height - ball.radius) {
