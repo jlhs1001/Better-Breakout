@@ -16,6 +16,8 @@ let dy = -2;
 
 let xOffset;
 
+let getHighScore = getUrlParam("highscore", false);
+
 let brickIndex = 0;
 
 let bricks = genBricks();
@@ -23,8 +25,6 @@ let bricks = genBricks();
 let pause = false;
 
 let display = document.getElementById("display");
-
-let highScore;
 
 function getUrlVars() {
     let vars = {};
@@ -42,9 +42,14 @@ function getUrlParam(parameter, defaultValue) {
     return urlparameter;
 }
 
-function setHighScore() {
+function setUrlParam() {
     window.location.href = `http://localhost:63342/breakOut/index.html?highscore=${highScore}`
 }
+
+let highScore = 0;
+
+let doHighScore = false;
+
 
 function genBrick(x, y, color = "red") {
 
@@ -61,7 +66,6 @@ function genBrick(x, y, color = "red") {
 
 function killBrick(brickId) {
     let brick = bricks[brickId - 1];
-    console.log(brick);
     brick.h = 0;
     brick.w = 0;
     brick.x = 0;
@@ -69,8 +73,7 @@ function killBrick(brickId) {
 }
 
 
-
-function genBricks(rows = 1, columns = 1) {
+function genBricks(rows = 10, columns = 4) {
     let bricks = [];
     r = rows;
     c = columns;
@@ -80,7 +83,6 @@ function genBricks(rows = 1, columns = 1) {
             let g = 50 + (20 * col);
             let b = 100 - (10 * col);
             let color = `rgb(${r}, ${g}, ${b})`;
-            console.log(row, col);
             bricks.push(genBrick(row * 64, col * 64, color))
         }
     }
@@ -143,7 +145,6 @@ function logKey(e) {
 }
 
 function gameOver() {
-    console.log("game over");
     pause = true;
     lives = 3;
     score = 0;
@@ -188,7 +189,15 @@ function maxMinPaddlePos() {
 }
 
 function scoreBoard() {
-    display.innerHTML = `Score: ${score} \xa0\xa0\xa0\ lives: ${lives}`
+    if (score < highScore) {
+        display.innerHTML = `Score: ${score} \xa0\xa0\ Lives:  ${lives} \xa0\xa0\ High Score: ${highScore}`
+    } else if (score > highScore) {
+        highScore = score;
+        doHighScore = true;
+        let saveHighScore = document.cookie = getHighScore;
+
+        display.innerHTML = `Score: ${score} \xa0\xa0\ Lives: ${lives} \xa0\xa0\ High Score: ${highScore}`
+    }
 }
 
 function drawBall() {
@@ -219,7 +228,7 @@ function ballWallCollision() {
 }
 
 function newGame() {
-    location.reload();
+    setUrlParam();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     genBricks();
     dx = 2;
@@ -232,28 +241,20 @@ function newGame() {
 }
 
 function win() {
-    if (score >=  r * c) {
+    if (score >= r * c) {
         pause = true;
         winWrapper.style.display = "block";
     }
 }
 
-function positiveNegative(x, y) {
-    let a = Math.sign(x);
-    let b = Math.sign(y);
-    if (a === 1 && b === -1) {
-        return "posNeg"
-    } else if (a === -1 && b === 1) {
-        return "negPos"
-    } else if (a === 1 && b === 1) {
-        return "posPos"
-    } else if (a === -1 && b === -1) {
-        return "negNeg"
-    }
-}
-
 function update(progress) {
-    console.log(`dx: ${dx} dy: ${dy} || ${positiveNegative(dx, dy)}`);
+    if (getHighScore === false) {
+        highScore = score;
+    } else {
+
+    }
+
+
     scoreBoard();
     brickCollision();
     paddleBallCollision();
@@ -269,8 +270,9 @@ function update(progress) {
 
     if (lives <= 0) {
         gameOver();
-
     }
+
+
 
     ball.x += dx;
     ball.y += dy;
