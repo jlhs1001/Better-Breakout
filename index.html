@@ -11,28 +11,39 @@
 <div id="gameOverWrapper">
     <div id="gameOverBox">
         <div id="gameOver">Game Over<br>
-            <button id="gameOverButton" onclick="newGame()">Restart</button></div>
+            <button id="gameOverButton" onclick="newGame()">Restart</button>
+        </div>
     </div>
 </div>
 
 <div id="winWrapper">
     <div id="winBox">
         <div id="win">You Win!<br>
-            <button id="winButton" onclick="newGame()">Restart</button></div>
+            <button id="winButton" onclick="newGame()">Restart</button>
+        </div>
+    </div>
+</div>
+
+<div id="cheatWrapper">
+    <div id="cheatBox">
+        <div id="cheat">You Cheated!<br>
+            <button id="cheatButton"
+                    onclick="window.close(); window.location.href = 'https://www.amazon.com/Hacking-Beginners-Guide-Computer-Security-ebook/dp/B01MZFZES1/ref=sr_1_10_sspa?dchild=1&keywords=hack&q';">
+                Leave!
+            </button>
+        </div>
     </div>
 </div>
 
 
-
 <div id="displayWrapper">
-<div id="display"></div>
+    <div id="display"></div>
 </div>
 
 <div id="canvasBox">
     <canvas id="canvas" width="800" height="600">Canvas Not Loaded. Please change your browser or reload the page.
     </canvas>
 </div>
-
 
 
 <script src="js/main.js"></script>

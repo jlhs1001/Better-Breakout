@@ -2,10 +2,13 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const gameOverWrapper = document.getElementById("gameOverWrapper");
 const winWrapper = document.getElementById("winWrapper");
+const cheatWrapper = document.getElementById("cheatWrapper");
 
 let r;
 let c;
+window.localStorage.setItem("ch", "false");
 
+let round = 1;
 let ranBallX = Math.floor(Math.random() * canvas.width);
 let player = {x: 300, y: 500, w: 100, h: 20};
 let ball = {x: ranBallX, y: 450, radius: 10};
@@ -15,9 +18,6 @@ let dx = 2;
 let dy = -2;
 
 let xOffset;
-
-let getHighScore = getUrlParam("highscore", false);
-
 let brickIndex = 0;
 
 let bricks = genBricks();
@@ -25,6 +25,14 @@ let bricks = genBricks();
 let pause = false;
 
 let display = document.getElementById("display");
+
+let highScore = 0;
+
+
+if (window.localStorage.getItem("hScore") !== null) {
+    highScore = window.localStorage.getItem("hScore");
+}
+
 
 function getUrlVars() {
     let vars = {};
@@ -41,14 +49,6 @@ function getUrlParam(parameter, defaultValue) {
     }
     return urlparameter;
 }
-
-function setUrlParam() {
-    window.location.href = `http://localhost:63342/breakOut/index.html?highscore=${highScore}`
-}
-
-let highScore = 0;
-
-let doHighScore = false;
 
 
 function genBrick(x, y, color = "red") {
@@ -133,6 +133,12 @@ function brickCollision() {
             killBrick(brick.id);
             dy = -dy;
             score++;
+            if (score > highScore) {
+                highScore = score;
+
+                window.localStorage.setItem("hScore", highScore);
+            }
+
             return true;
         }
     }
@@ -189,15 +195,8 @@ function maxMinPaddlePos() {
 }
 
 function scoreBoard() {
-    if (score < highScore) {
-        display.innerHTML = `Score: ${score} \xa0\xa0\ Lives:  ${lives} \xa0\xa0\ High Score: ${highScore}`
-    } else if (score > highScore) {
-        highScore = score;
-        doHighScore = true;
-        let saveHighScore = document.cookie = getHighScore;
+    display.innerHTML = `Score: ${score} \xa0\xa0\ Lives:  ${lives} \xa0\xa0\ High Score: ${highScore}`;
 
-        display.innerHTML = `Score: ${score} \xa0\xa0\ Lives: ${lives} \xa0\xa0\ High Score: ${highScore}`
-    }
 }
 
 function drawBall() {
@@ -205,6 +204,7 @@ function drawBall() {
         ranBallX = 40
     } else if (ranBallX >= (canvas.width - 40)) {
         ranBallX = (canvas.width - 40)
+
     }
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -228,39 +228,35 @@ function ballWallCollision() {
 }
 
 function newGame() {
-    setUrlParam();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    location.reload();
     genBricks();
     dx = 2;
     dy = -2;
-    lives = 3;
-    score = 0;
     pause = false;
     gameOverWrapper.style.display = "none";
     winWrapper.style.display = "none";
 }
 
 function win() {
-    if (score >= r * c) {
+    if (score >= (r * c) * round) {
+        round++;
         pause = true;
         winWrapper.style.display = "block";
     }
 }
 
 function update(progress) {
-    if (getHighScore === false) {
-        highScore = score;
-    } else {
-
+    if (score > r * c || highScore > r * c) {
+        window.localStorage.setItem("ch", "true")
     }
-
-
-    scoreBoard();
-    brickCollision();
     paddleBallCollision();
     ballWallCollision();
     maxMinPaddlePos();
     win();
+    scoreBoard();
+    brickCollision();
+
     xOffset = ((window.innerWidth / 2) - (canvas.width / 2));
     if (devMode === false) {
         if (ball.y + dy >= canvas.height - ball.radius) {
@@ -273,10 +269,12 @@ function update(progress) {
     }
 
 
-
     ball.x += dx;
     ball.y += dy;
 
+    if (window.localStorage.getItem("ch") === "true") {
+        cheatWrapper.style.display = "block";
+    }
 }
 
 function drawPaddle() {
