@@ -247,7 +247,7 @@ function win() {
 }
 
 function update(progress) {
-    if (score > r * c || highScore > r * c) {
+    if (score > r * c || highScore > (r * c) * round) {
         window.localStorage.setItem("ch", "true")
     }
     paddleBallCollision();
