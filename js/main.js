@@ -10,6 +10,7 @@ window.localStorage.setItem("ch", "false");
 
 let speed = 2;
 
+
 let round = 1;
 let ranBallX = Math.floor(Math.random() * canvas.width);
 let player = {x: 300, y: 500, w: 100, h: 20};
@@ -124,24 +125,35 @@ let lives = 3;
 let score = 0;
 
 let brick;
+const xRadius = () => ball.x + ball.radius;
+const yRadius = () => ball.y + ball.radius;
 
 function brickCollision() {
     for (let i = 0; i < bricks.length; i++) {
         brick = bricks[i];
-        let xRadius = ball.x + (ball.radius);
-        let yRadius = ball.y + (ball.radius);
-        if (xRadius < brick.x - brick.width) {
+        // let xRadius() = ball.x + (ball.radius);
+        // let yRadius() = ball.y + (ball.radius);
+
+        if (xRadius() < brick.x - brick.width) {
             console.log("less than x")
         }
-        if (xRadius >= brick.x && (ball.x - ball.radius) <= (brick.x + brick.w) &&
-            yRadius >= brick.y && (ball.y - ball.radius) <= (brick.y + brick.h)) {
-            if (xRadius === brick.x || xRadius - 20 === (brick.x + brick.w)) {
-                dx = -dx
+        if (xRadius() >= brick.x && (ball.x - ball.radius) <= (brick.x + brick.w) &&
+            yRadius() >= brick.y && (ball.y - ball.radius) <= (brick.y + brick.h)) {
+            let x = brick.x;
+            let w = brick.w;
+
+            console.table(brick);
+            console.log(xRadius(), x + w, "x:" + x);
+            killBrick(brick.id);
+            if (xRadius() === x || xRadius() + 60 === (x + w) || xRadius() + 60 === (x)
+                || xRadius() + 59 === (x + w) || xRadius() + 59 === (x) || xRadius() + 61 === (x + w) || xRadius() + 61 === (x)
+                || xRadius() - 20 === (x + w) || xRadius() - 20 === (x) || xRadius() - 19 === (x + w) || xRadius() - 19 === (x)
+                || xRadius() - 21 === (x + w) || xRadius() - 21 === (x)) {
+                dx = -dx;
+
             } else {
                 dy = -dy;
-                console.log((brick.x + brick.w), brick.x, brick.w, xRadius)
             }
-            killBrick(brick.id);
 
             score++;
             if (score > highScore) {
@@ -190,7 +202,7 @@ function drawBrick() {
 }
 
 function paddleBallCollision() {
-    if (ball.y > player.y && ball.y < player.y + player.w) {
+    if ((ball.y + ball.radius) > player.y && ball.y < player.y + (player.w / 2)) {
         if (ball.x > player.x && ball.x < (player.x + player.w)) {
             dy = -dy
         }
@@ -238,17 +250,6 @@ function ballWallCollision() {
     }
 }
 
-/*
-((brick.x + brick.w), brick.x, brick.w, xRadius)
-
-* right side:
-* failure:
-*   444 384 60 463
-* success:
-*   316 256 60 325
-*/
-
-
 function newGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     location.reload();
@@ -262,6 +263,10 @@ function newGame() {
 
 function win() {
     if (score >= (r * c) * round) {
+        dx = 2;
+        dy = -2;
+        dx += 1;
+        dy += -1;
         round++;
         pause = true;
         winWrapper.style.display = "block";
@@ -283,7 +288,6 @@ function update(progress) {
     xOffset = ((window.innerWidth / 2) - (canvas.width / 2));
     if (devMode === false) {
         if (ball.y + dy >= canvas.height - ball.radius) {
-            die();
             die();
         }
     }
