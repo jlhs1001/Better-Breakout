@@ -8,14 +8,16 @@ let r;
 let c;
 window.localStorage.setItem("ch", "false");
 
+let speed = 2;
+
 let round = 1;
 let ranBallX = Math.floor(Math.random() * canvas.width);
 let player = {x: 300, y: 500, w: 100, h: 20};
 let ball = {x: ranBallX, y: 450, radius: 10};
 
 let devMode = false;
-let dx = 2;
-let dy = -2;
+let dx = speed;
+let dy = -speed;
 
 let xOffset;
 let brickIndex = 0;
@@ -128,10 +130,19 @@ function brickCollision() {
         brick = bricks[i];
         let xRadius = ball.x + (ball.radius);
         let yRadius = ball.y + (ball.radius);
-        if (xRadius > brick.x && (ball.x - ball.radius) < (brick.x + brick.w) &&
-            yRadius > brick.y && (ball.y - ball.radius) < (brick.y + brick.h)) {
+        if (xRadius < brick.x - brick.width) {
+            console.log("less than x")
+        }
+        if (xRadius >= brick.x && (ball.x - ball.radius) <= (brick.x + brick.w) &&
+            yRadius >= brick.y && (ball.y - ball.radius) <= (brick.y + brick.h)) {
+            if (xRadius === brick.x || xRadius - 20 === (brick.x + brick.w)) {
+                dx = -dx
+            } else {
+                dy = -dy;
+                console.log((brick.x + brick.w), brick.x, brick.w, xRadius)
+            }
             killBrick(brick.id);
-            dy = -dy;
+
             score++;
             if (score > highScore) {
                 highScore = score;
@@ -179,7 +190,7 @@ function drawBrick() {
 }
 
 function paddleBallCollision() {
-    if (ball.y === (player.y - player.h / 2)) {
+    if (ball.y > player.y && ball.y < player.y + player.w) {
         if (ball.x > player.x && ball.x < (player.x + player.w)) {
             dy = -dy
         }
@@ -227,6 +238,17 @@ function ballWallCollision() {
     }
 }
 
+/*
+((brick.x + brick.w), brick.x, brick.w, xRadius)
+
+* right side:
+* failure:
+*   444 384 60 463
+* success:
+*   316 256 60 325
+*/
+
+
 function newGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     location.reload();
@@ -243,6 +265,7 @@ function win() {
         round++;
         pause = true;
         winWrapper.style.display = "block";
+        speed++;
     }
 }
 
@@ -260,6 +283,7 @@ function update(progress) {
     xOffset = ((window.innerWidth / 2) - (canvas.width / 2));
     if (devMode === false) {
         if (ball.y + dy >= canvas.height - ball.radius) {
+            die();
             die();
         }
     }
