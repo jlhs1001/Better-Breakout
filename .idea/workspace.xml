@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8b0963f-cfee-406d-be2b-8243d81f4566" name="Default Changelist" comment="add main js pre-minify backup">
+    <list default="true" id="b8b0963f-cfee-406d-be2b-8243d81f4566" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +68,7 @@
       <workItem from="1585713524355" duration="13213000" />
       <workItem from="1585799131194" duration="35394000" />
       <workItem from="1586184322810" duration="64747000" />
+      <workItem from="1586445737567" duration="289000" />
     </task>
     <task id="LOCAL-00001" summary="add basic brick generator V.1.0">
       <created>1584651143897</created>
@@ -173,7 +175,21 @@
       <option name="project" value="LOCAL" />
       <updated>1586444992913</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fix letter HTML letter mistake">
+      <created>1586445764660</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1586445764660</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add main js original backup">
+      <created>1586445823300</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1586445823300</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,17 +210,19 @@
     <MESSAGE value="add paddle increment w/ fix paddle collision" />
     <MESSAGE value="fix brick collision" />
     <MESSAGE value="minify js file" />
-    <option name="LAST_COMMIT_MESSAGE" value="minify js file" />
+    <MESSAGE value="fix letter HTML letter mistake" />
+    <MESSAGE value="add main js original backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="add main js original backup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="3570" y="-313" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586268681020">
       <screen x="1920" y="-763" width="2560" height="1400" />
     </state>
     <state x="3570" y="-313" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1586268681020" />
-    <state x="2575" y="-630" key="CommitChangelistDialog2" timestamp="1586445763133">
+    <state x="2575" y="-630" key="CommitChangelistDialog2" timestamp="1586445822526">
       <screen x="1920" y="-640" width="2560" height="1400" />
     </state>
-    <state x="2575" y="-630" key="CommitChangelistDialog2/0.0.1536.824/1920.-640.2560.1400@1920.-640.2560.1400" timestamp="1586445763133" />
+    <state x="2575" y="-630" key="CommitChangelistDialog2/0.0.1536.824/1920.-640.2560.1400@1920.-640.2560.1400" timestamp="1586445822526" />
     <state x="2575" y="-753" key="CommitChangelistDialog2/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1586210053832" />
     <state x="393" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586309843290" />
     <state x="655" y="10" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1585693969328" />
@@ -226,10 +244,10 @@
     </state>
     <state x="2382" y="-670" key="SettingsEditor/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1586269607091" />
     <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585282381986" />
-    <state x="2522" y="-394" key="Vcs.Push.Dialog.v2" timestamp="1586445770262">
+    <state x="2522" y="-394" key="Vcs.Push.Dialog.v2" timestamp="1586445830272">
       <screen x="1920" y="-640" width="2560" height="1400" />
     </state>
-    <state x="2522" y="-394" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-640.2560.1400@1920.-640.2560.1400" timestamp="1586445770262" />
+    <state x="2522" y="-394" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-640.2560.1400@1920.-640.2560.1400" timestamp="1586445830272" />
     <state x="2522" y="-517" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.-763.2560.1400@1920.-763.2560.1400" timestamp="1586210059403" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586309847576" />
     <state x="1913" y="-640" width="1294" height="1407" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1586445464043">
